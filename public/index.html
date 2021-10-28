@@ -39,7 +39,7 @@
   for (var i = 0; i < data.length; i++) {
     var tr = document.createElement("tr");
     tr.innerHTML = `<td width="10%" ><button id="finish" value="${data[i].id}">完成</button></td> 
-    <td >${data[i].id}</td> <td width="30%">${data[i].title} </td> 
+    <td width="5%">${data[i].id}</td> <td width="30%">${data[i].title} </td> 
     <td width="10%" ><button id="change" onclick="change(this)" value="${data[i].id}">修改</button></td> 
     <td width="10%"><button id="del" onclick="del()" value="${data[i].id}">刪除</button></td>`;
     mainContainer.appendChild(tr);
