@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <!-- <script src="/index.js"></script> -->
+</head>
+<body>
+  <div >
+  Todo<input id="todoV" type="text">
+  <button onclick="insert()">Send</button>
+<table id="myData"></table>
+
+</div>
+<script>
+  
+  const uri = 'http://127.0.0.1:8080/get';
+  const initDetails = {
+      method: 'get',
+      headers: {
+          "Content-Type": "application/json; charset=utf-8"
+      },
+      mode: "cors"
+  }
+      fetch( uri, initDetails )
+          .then(function (response) {
+            return response.json();
+          })
+          .then(function (data) {
+          appendData(data);
+         })
+          .catch( err =>
+          {
+              console.log( 'Fetch Error :-S', err );
+          } );
+  
+  function appendData(data) {
+  var mainContainer = document.getElementById("myData");
+  for (var i = 0; i < data.length; i++) {
+    var tr = document.createElement("tr");
+    tr.innerHTML = `<td width="10%" ><button id="finish" value="${data[i].id}">完成</button></td> 
+    <td >${data[i].id}</td> <td width="30%">${data[i].title} </td> 
+    <td width="10%" ><button id="change" onclick="change(this)" value="${data[i].id}">修改</button></td> 
+    <td width="10%"><button id="del" onclick="del()" value="${data[i].id}">刪除</button></td>`;
+    mainContainer.appendChild(tr);
+  }
+}
+
+function insert(a){
+let chV = document.getElementById('todoV').value
+  // let chV = prompt('請輸入修改值');
+  var chId = a.value
+  // console.log(chId,chV);
+  // let obj = JSON.parse(`{"id":${chId},"title":${chV}}`);
+  // console.log(JSON.stringify(obj));
+
+  const uri = 'http://127.0.0.1:8080/insert';
+  const initDetails = {
+      method: 'POST',
+      headers: {
+          "Content-Type": "application/json; charset=utf-8"
+      },
+      body: JSON.stringify({"title":chV}),
+      mode: "cors"
+  }
+      fetch( uri, initDetails )
+          .then(function (response) {
+            return response.json();
+          })
+          .then(function (data) {
+          appendData(data);
+         })
+          .catch( err =>
+          {
+              console.log( 'Fetch Error :-S', err );
+          } );
+        window.alert(JSON.stringify(data)+'修改成功')
+}
+
+function del(){
+  const uri = 'http://127.0.0.1:8080/get';
+  const initDetails = {
+      method: 'get',
+      headers: {
+          "Content-Type": "application/json; charset=utf-8"
+      },
+      mode: "cors"
+  }
+      fetch( uri, initDetails )
+          .then(function (response) {
+            return response.json();
+          })
+          .then(function (data) {
+          appendData(data);
+         })
+          .catch( err =>
+          {
+              console.log( 'Fetch Error :-S', err );
+          } );
+}
+
+
+function finish(){
+  const uri = 'http://127.0.0.1:8080/get';
+  const initDetails = {
+      method: 'get',
+      headers: {
+          "Content-Type": "application/json; charset=utf-8"
+      },
+      mode: "cors"
+  }
+      fetch( uri, initDetails )
+          .then(function (response) {
+            return response.json();
+          })
+          .then(function (data) {
+          appendData(data);
+         })
+          .catch( err =>
+          {
+              console.log( 'Fetch Error :-S', err );
+          } );
+}
+  
+</script>
+
+ 
+</body>
+</html>
